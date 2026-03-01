@@ -26,12 +26,24 @@ VIDEOCHATGPT = {
     "data_path": "PATH_TO_VIDEOCHATGPT_DATA",
 }
 
+BRAIN_IMAGE = {
+    "annotation_path": "/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/data/qwen_format_qa/gpt4o_brain_train_image_qa_image_qa_pairs_qwen.json",
+    "data_path": "",
+}
+
+BRAIN_VOLUME = {
+    "annotation_path": "/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/data/qwen_format_qa/gpt4o_brain_train_volume_qa_volume_qa_pairs_qwen_mp4.json",
+    "data_path": "",
+}
+
 data_dict = {
     "cambrian_737k": CAMBRIAN_737K,
     "cambrian_737k_pack": CAMBRIAN_737K_PACK,
     "mp_doc": MP_DOC,
     "clevr_mc": CLEVR_MC,
     "videochatgpt": VIDEOCHATGPT,
+    "brain_image": BRAIN_IMAGE,
+    "brain_volume": BRAIN_VOLUME,
 }
 
 

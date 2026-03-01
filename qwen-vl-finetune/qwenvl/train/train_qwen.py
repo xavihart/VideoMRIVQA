@@ -22,6 +22,30 @@ import transformers
 import sys
 from pathlib import Path
 
+# Monkeypatch transformers to use 'av' backend for video decoding
+# to avoid torchcodec/ffmpeg dependency issues on compute nodes.
+try:
+    import transformers.video_utils as video_utils
+    # Force 'av' as the only backend
+    video_utils.read_video_torchcodec = video_utils.read_video_pyav
+    
+    # Aggressively patch any use of torchcodec
+    import sys
+    sys.modules['torchcodec'] = None
+    
+    # Patch load_video to force backend='av' without adding new args to callers
+    original_load_video = video_utils.load_video
+    def patched_load_video(*args, **kwargs):
+        if "backend" in kwargs and kwargs["backend"] == "torchcodec":
+            kwargs["backend"] = "av"
+        return original_load_video(*args, **kwargs)
+    video_utils.load_video = patched_load_video
+
+    print("Successfully monkeypatched transformers video utilities to force 'av' backend.")
+except Exception as e:
+    print(f"Failed to monkeypatch video_utils: {e}")
+
+
 project_root = Path(__file__).parent.parent.parent
 sys.path.append(str(project_root))
 

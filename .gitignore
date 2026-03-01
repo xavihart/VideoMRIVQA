@@ -1,0 +1,22 @@
+# Large model files and checkpoints
+/checkpoints/
+*.bin
+*.pt
+*.pth
+*.safetensors
+
+# Data and logs
+/data/
+/logs/
+/scripts/wandb/
+/wandb/
+
+# Python environment and caches
+/.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS files
+.DS_Store
