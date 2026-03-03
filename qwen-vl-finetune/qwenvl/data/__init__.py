@@ -27,12 +27,22 @@ VIDEOCHATGPT = {
 }
 
 BRAIN_IMAGE = {
-    "annotation_path": "/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/data/qwen_format_qa/gpt4o_brain_train_image_qa_image_qa_pairs_qwen.json",
+    "annotation_path": "/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/data/qwen_format_qa/brain_train_image_qwen.json",
     "data_path": "",
 }
 
 BRAIN_VOLUME = {
-    "annotation_path": "/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/data/qwen_format_qa/gpt4o_brain_train_volume_qa_volume_qa_pairs_qwen_mp4.json",
+    "annotation_path": "/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/data/qwen_format_qa/brain_train_volume_qwen.json",
+    "data_path": "",
+}
+
+KNEE_IMAGE = {
+    "annotation_path": "/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/data/qwen_format_qa/knee_train_image_qwen.json",
+    "data_path": "",
+}
+
+KNEE_VOLUME = {
+    "annotation_path": "/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/data/qwen_format_qa/knee_train_volume_qwen.json",
     "data_path": "",
 }
 
@@ -44,6 +54,8 @@ data_dict = {
     "videochatgpt": VIDEOCHATGPT,
     "brain_image": BRAIN_IMAGE,
     "brain_volume": BRAIN_VOLUME,
+    "knee_image": KNEE_IMAGE,
+    "knee_volume": KNEE_VOLUME,
 }
 
 
