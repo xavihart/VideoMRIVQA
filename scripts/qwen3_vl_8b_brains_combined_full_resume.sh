@@ -15,6 +15,7 @@ TRAIN_SCRIPT="/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/qwen-vl-f
 DS_CONFIG="/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/scripts/zero3.json"
 OUTPUT_DIR="/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/checkpoints/qwen3_vl_8b_brains_combined_full"
 CACHE_DIR="/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/cache"
+RESUME_CHECKPOINT="/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/checkpoints/qwen3_vl_8b_brains_combined_full/checkpoint-1503"
 
 # ======================
 # Model Configuration
@@ -24,7 +25,8 @@ DATASETS="brain_volume%100,brain_image%100,knee_volume%100,knee_image%100"
 # ======================
 # Training Hyperparameters
 # ======================
-# Full SFT (no LoRA)
+# Original: 1503 steps (3 epochs)
+# Goal: 2 more epochs (Total 5 epochs)
 PYTHONPATH="/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/qwen-vl-finetune:$PYTHONPATH" \
 /storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/.venv/bin/torchrun --nproc_per_node=$NPROC_PER_NODE \
          --master_addr=$MASTER_ADDR \
@@ -54,14 +56,15 @@ PYTHONPATH="/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/qwen-vl-fin
          --video_min_frames 4 \
          --video_max_pixels 1304576 \
          --video_min_pixels 200704 \
-         --num_train_epochs 3 \
+         --num_train_epochs 5 \
          --warmup_ratio 0.03 \
          --lr_scheduler_type "cosine" \
          --weight_decay 0.01 \
          --logging_steps 1 \
          --report_to wandb \
-         --run_name qwen3_vl_8b_brains_combined_full \
+         --run_name qwen3_vl_8b_brains_combined_full_resume_2epochs \
          --save_steps 500 \
          --save_total_limit 3 \
          --lora_enable False \
+         --resume_from_checkpoint $RESUME_CHECKPOINT \
          --deepspeed $DS_CONFIG

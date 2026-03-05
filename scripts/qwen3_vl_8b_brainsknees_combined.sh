@@ -13,7 +13,7 @@ NPROC_PER_NODE=$(nvidia-smi --list-gpus | wc -l)
 MODEL_PATH="/storage/ice-shared/ae8803che/hxue/data/checkpoint/Qwen3-VL-8B-Instruct"
 TRAIN_SCRIPT="/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/qwen-vl-finetune/qwenvl/train/train_qwen.py"
 DS_CONFIG="/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/scripts/zero3.json"
-OUTPUT_DIR="/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/checkpoints/qwen3_vl_8b_brains_combined_full"
+OUTPUT_DIR="/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/checkpoints/qwen3_vl_8b_brains_combined_lora"
 CACHE_DIR="/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/cache"
 
 # ======================
@@ -24,7 +24,6 @@ DATASETS="brain_volume%100,brain_image%100,knee_volume%100,knee_image%100"
 # ======================
 # Training Hyperparameters
 # ======================
-# Full SFT (no LoRA)
 PYTHONPATH="/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/qwen-vl-finetune:$PYTHONPATH" \
 /storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/.venv/bin/torchrun --nproc_per_node=$NPROC_PER_NODE \
          --master_addr=$MASTER_ADDR \
@@ -60,8 +59,11 @@ PYTHONPATH="/storage/ice-shared/ae8803che/hxue/data/eccv/VideoMRIVQA/qwen-vl-fin
          --weight_decay 0.01 \
          --logging_steps 1 \
          --report_to wandb \
-         --run_name qwen3_vl_8b_brains_combined_full \
+         --run_name qwen3_vl_8b_brains_combined_lora \
          --save_steps 500 \
          --save_total_limit 3 \
-         --lora_enable False \
+         --lora_enable True \
+         --lora_r 64 \
+         --lora_alpha 128 \
+         --lora_dropout 0.05 \
          --deepspeed $DS_CONFIG

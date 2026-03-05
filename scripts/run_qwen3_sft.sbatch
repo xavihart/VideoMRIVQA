@@ -1,10 +1,10 @@
 #!/bin/bash
-#SBATCH --job-name=qwen3_sft_8h200
+#SBATCH --job-name=qwen3_sft_8h100
 #SBATCH --partition=coe-gpu
 #SBATCH --qos=coe-grade
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --gres=gpu:h200:8
+#SBATCH --gres=gpu:h100:8
 #SBATCH --cpus-per-task=64
 #SBATCH --mem=1000G
 #SBATCH --time=03:00:00
